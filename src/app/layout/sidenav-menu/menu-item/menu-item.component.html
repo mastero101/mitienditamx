@@ -1,0 +1,17 @@
+@if(isSubmenu){
+    <div class="submenu-container" routerLink="{{item.route}}" [queryParams]="getQueryParams(item.queryParams)">
+        <div class="menu-header-line"> 
+            @if(item.isActive){ 
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            }
+            <span>{{item.title}}</span>
+        </div>
+    </div>
+} @else{
+    <div class="menu-header-container" [routerLink]="getRoute(item.route)" [class.active]="item.isActive">
+        <div class="menu-header-line" [class.justify-center]="item.isActive">
+            <mat-icon>{{item.icon}}</mat-icon>
+            <span>{{item.title}}</span>
+        </div>
+    </div>
+}

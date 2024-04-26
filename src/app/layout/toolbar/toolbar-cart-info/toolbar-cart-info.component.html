@@ -1,0 +1,28 @@
+<h4 class="header">Tu carrito</h4>
+@for (item of items; track $index) {
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar src="{{ item.url }}">
+      <div class="product-name">{{item.name}}</div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="price-details">
+        <span class="price">{{item.price | currency}} MXN</span>
+        <span> Cantidad: {{item.count}}</span>       
+      </div>
+    </mat-card-content>
+    <div class="actions">
+      <button class="delete-btn" (click)="deleteItemFromShoppingCart($event,item.id)" mat-button color="warn">Eliminar</button>
+    </div>
+  </mat-card>
+} @empty {
+  <div style="padding: 10px 20px;">
+    <p style="text-align: center; color: black">
+      Tu carrito esta vacío
+    </p>
+    <button mat-raised-button color="primary" routerLink="/products" style="width: 100%;">Ver Productos</button>     
+  </div>   
+}
+@if(cartItemsCount > 0){
+  <button class="checkout" mat-flat-button color="primary" routerLink="/checkout">Proceder al Pago</button>
+}

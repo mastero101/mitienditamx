@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>{{ data?.id ? 'Editar' : 'Nuevo' }} Producto</h2>
+<mat-dialog-content class="mat-typography">
+  <div [formGroup]="newItemForm">
+    <div class="fields-row">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput maxlength="150" name="defaultName" placeholder="Nombre del producto"
+          formControlName="defaultName" id="defaultName" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Marca</mat-label>
+        <input matInput maxlength="150" name="brand" placeholder="Marca del producto" formControlName="brand"
+          id="defaultName" />
+      </mat-form-field>
+      <mat-form-field floatLabel="always">
+        <mat-label>Precio</mat-label>
+        <input matInput name="price" formControlName="price" placeholder="0" currencyMask>
+        <span matTextPrefix>$&nbsp;</span>
+      </mat-form-field>
+      <mat-form-field  floatLabel="always">
+        <mat-label>Existencias</mat-label>
+        <input matInput name="availableItems" formControlName="availableItems" type="number" placeholder="1">
+      </mat-form-field>
+    </div>
+  </div>
+  <div style="text-align: center;">
+    <img class="item-image" mat-card-image src={{url}} alt="item photo">
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button cdkFocusInitial color="primary" (click)="saveItem()" [disabled] = "isInvalid">Agregar</button>
+</mat-dialog-actions>

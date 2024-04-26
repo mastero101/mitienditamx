@@ -1,0 +1,74 @@
+:host {
+    padding: 5px 5px;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        text-align: center;
+        margin-bottom: 0px;
+    }
+
+    mat-card {
+        max-width: 250px;
+        width: 250px;
+        margin-top: 5px;
+
+        mat-card-header {
+            padding: 5px;
+            max-height: 40px;
+           
+
+            .mat-mdc-card-header-text{
+                width: 100%;
+            }
+
+            img {
+                object-fit: contain;
+                height: 40px;
+            }
+
+            .product-name {
+                font-size: 12px;
+                font-weight: normal;
+                padding-left: 5px;
+                padding-right: 5px;
+                color: #007185;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                line-height: 18px;
+            }
+        }
+
+        mat-card-content {
+            padding: 5pxpx !important;
+
+            .price-details {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                font-size: 12px;
+
+                .price {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .actions{
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+
+            .delete-btn{
+                max-height: 20px;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .checkout{
+        margin-top: 5px;
+    }
+}

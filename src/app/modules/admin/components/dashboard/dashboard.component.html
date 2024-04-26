@@ -1,0 +1,37 @@
+<mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="user-avatar">
+        <img src="https://i.imgur.com/htTNKsG.jpg"alt="">
+      </div>
+      <mat-card class="user-data" *ngIf="user">
+        <mat-card-title>{{ user.name }}</mat-card-title>
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      </mat-card>
+    </mat-card-header>
+    <mat-card-content class="user-address">
+      <p>Direcciones:</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Selecciona una dirección</mat-label>
+        <mat-select [(value)]="selectedAddress" (selectionChange)="onSelectAddress($event.value)">
+          <mat-option *ngFor="let address of user.addresses" [value]="address">{{ address }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="editing">
+        <form #editForm="ngForm" (ngSubmit)="saveAddress()">
+          <mat-form-field appearance="fill">
+            <mat-label>Edita tu dirección</mat-label>
+            <textarea matInput name="editedAddress" [(ngModel)]="editedAddress" placeholder="Ingrese su nueva dirección"></textarea>
+          </mat-form-field>
+          <button mat-button type="submit" color="primary">Guardar</button>
+        </form>
+      </div>
+      <button class="editAddress" mat-mini-fab color="primary" (click)="toggleEditing()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="orders()">Ver Pedidos</button>
+    </mat-card-actions>
+  </mat-card>
+  

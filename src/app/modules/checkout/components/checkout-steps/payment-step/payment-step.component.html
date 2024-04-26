@@ -1,0 +1,19 @@
+@if(form){
+    <h1> Datos para el pago en sucursal bancaria o transferencia SPEI</h1>
+    <div class="main-container">
+        <h3> <strong>Banco: </strong>BANAMEX</h3>
+        <h3><strong>CLABE: </strong>1234 5678 9101 1213</h3>
+        <h3><strong>Nombre: </strong>Onecíforo Piña</h3>       
+        <p> Si el pago no es recibido en un periodo de 48 horas, el pedido será cancelado. </p>
+        <form [formGroup]="form">
+            <mat-checkbox [formControl]="agreementControl">Acepto los términos y condiciones</mat-checkbox>
+            @if(agreementControl.invalid && agreementControl.touched ){ 
+                <mat-error>Debe aceptar los términos y condiciones</mat-error>
+            }
+        </form>
+    </div>
+    <div class="step-action-buttons">
+        <button mat-button color="warn" class="previous-button" (click)="clickedPrevious.emit()">Anterior</button>
+        <button mat-button color="primary" class="next-button" (click)="clickedNext.emit()">Siguiente</button>
+    </div>
+}

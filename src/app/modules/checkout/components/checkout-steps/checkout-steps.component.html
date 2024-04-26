@@ -1,0 +1,30 @@
+@if(isEmptyCart){
+    <div class="empty-cart">
+        <mat-icon>warning</mat-icon>
+        <h3>Oops! Tu carrito esta vacío</h3>
+        <button mat-raised-button color="primary" routerLink="/products">Ver Productos</button>
+    </div>
+} @else{
+    <mat-stepper [linear]="true" [orientation]="(stepperOrientation | async)!" #stepper>
+        <ng-template matStepperIcon="shopping_cart_icon"><mat-icon>shopping_cart</mat-icon></ng-template>
+        <ng-template matStepperIcon="local_shipping_icon"><mat-icon>local_shipping</mat-icon></ng-template>
+        <ng-template matStepperIcon="payment_icon"><mat-icon>attach_money</mat-icon></ng-template>
+        <ng-template matStepperIcon="location_icon"><mat-icon>location_on</mat-icon></ng-template>
+        <!-- STEPS -->      
+        <mat-step label="Productos Seleccionados" state="shopping_cart_icon">
+            <app-review-cart-step (clickedNext)="stepper.next()"></app-review-cart-step>
+        </mat-step>
+        <mat-step label="Datos de Envío" state="location_icon" [stepControl]="clientInfoForm" errorMessage="Datos incorrectos">
+            <app-client-info-step [form]="clientInfoForm" (clickedNext)="stepper.next()" (clickedPrevious)="stepper.previous()"></app-client-info-step>
+        </mat-step>
+        <mat-step  label="Envío" state="local_shipping_icon">
+            <app-shipping-method-step (clickedNext)="stepper.next()" (clickedPrevious)="stepper.previous()"></app-shipping-method-step>
+        </mat-step>   
+        <mat-step label="Forma de Pago" state="payment_icon" [stepControl]="paymentValidationForm" errorMessage="Datos incorrectos">
+            <app-payment-step [form]="paymentValidationForm" (clickedNext)="stepper.next()" (clickedPrevious)="stepper.previous()"></app-payment-step>
+        </mat-step>
+        <mat-step label="Finalizar Pedido">
+            <app-place-order-step [form]="checkoutForm" (clickedPrevious)="stepper.previous()"></app-place-order-step>
+        </mat-step>
+    </mat-stepper>
+}

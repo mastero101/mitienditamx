@@ -1,0 +1,34 @@
+<h2 mat-dialog-title style="text-align: center;">Detalles del Pedido</h2>
+<mat-dialog-content class="mat-typography">
+  <div style="display: flex; flex-direction: column;">
+    <div style="display: flex; flex-direction: row; font-size: 14px; color: black;">
+      <div>Pedido:</div>
+      <div style="padding-left: 5px;">{{data?.orderId}}</div>
+    </div>
+    <div style="display: flex; flex-direction: row; font-size: 14px; color: black;">
+      <div>Total:</div>
+      <div style="padding-left: 5px;">{{data?.totalAmount | currency}}</div>
+    </div>
+  </div>
+  <div [formGroup]="updateOrderForm">
+    <div class="fields-row">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Estado</mat-label>
+        <input matInput name="statusValue" formControlName="statusValue" id="statusValue" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Código de Rastreo Bancario</mat-label>
+        <input matInput name="bankTrackCode" [formControl]="bankTrackCodeControl" id="bankTrackCode" required />
+        <mat-error>
+          @if(bankTrackCodeControl.errors?.required){ Requerido }
+          @else if(bankTrackCodeControl.errors?.maxlength){ Máximo 30 caracteres }
+          @else if(bankTrackCodeControl.errors?.pattern){ Formato incorrecto }
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button cdkFocusInitial color="primary" (click)="saveItem()" [disabled] = "isInvalid || isCanceled">Agregar</button>
+</mat-dialog-actions>

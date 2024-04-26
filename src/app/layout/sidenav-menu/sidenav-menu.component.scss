@@ -1,0 +1,28 @@
+:host {
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        padding: 0px;
+        background-color: white;
+        width: 250px;
+        
+        .admin-section{
+            padding: 10px 0px;
+
+            .title{
+                text-align: center;
+                font-weight: bold;
+                margin-bottom: 0px;
+            }
+
+            .menu-section-header {
+                display: flex;
+                flex-direction: row;
+                column-gap: 10px;
+                align-items: center;
+                height: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}

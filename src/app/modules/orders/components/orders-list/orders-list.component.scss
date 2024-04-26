@@ -1,0 +1,164 @@
+:host {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    .fill-space {
+        flex: 1 1 auto;
+    }
+
+    .header-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0px 10px 10px 10px;
+
+        .records-counter {
+            padding-top: 11px;
+            font-size: .8em;
+        }
+
+        >mat-paginator {
+            flex-grow: 2;
+        }
+
+        .download-button-container {
+            display: flex;
+            align-items: center;
+            order: 3;
+
+            .download-button {
+                display: flex;
+                align-items: center;
+            }
+
+            .button-content {
+                min-width: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+
+                >.spinner {
+                    margin-left: 20px;
+                    width: 20px;
+                }
+            }
+        }
+    }
+
+    .table-container {
+        justify-content: center;
+        overflow: auto;
+        min-height: 60px;
+        position: relative;
+
+        .status-cell {
+            padding: 5px 15px;
+            border-radius: 10px;
+            min-height: 20px;
+        }
+
+        .statusCreated {
+            background-color: lightgray;
+        }
+
+        .statusAwaitingPayment {
+            background-color: lightyellow;
+        }
+
+        .statusPaymentInvalid {
+            background-color: orange;
+        }
+
+        .statusPaymentConfirmed {
+            background-color: lightblue;
+        }
+
+        .statusSent {
+            background-color: lightgreen;
+        }
+
+        .statusCanceled {
+            background-color: red;
+            color: black;
+        }
+
+        >.table {
+            width: 100%;
+            text-align: center;
+            height: 100%;
+
+            .mat-cell,
+            .mat-header-cell {
+                text-align: initial;
+                padding: 0px 5px;
+                border-bottom-width: 1px;
+                border-bottom-style: solid;
+                border-right-width: 1px;
+                border-right-style: solid;
+            }
+
+            .mat-header-row {
+                height: 20px;
+            }
+
+            .mat-cell {
+                width: min-content;
+                font-size: .8em;
+                word-break: break-word;
+                padding-right: 15px;
+            }
+
+            td.mat-cell:first-of-type,
+            td.mat-footer-cell:first-of-type,
+            th.mat-header-cell:first-of-type {
+                padding-left: 5px !important;
+            }
+
+            .td-container {
+                display: flex;
+            }
+
+            .mat-header-cell {
+                font-size: 12px !important;
+                font-weight: 500 !important;
+            }
+
+            tr.rows:hover {
+                filter: brightness(0.9);
+            }
+
+            .link-table {
+                text-decoration: underline;
+                cursor: pointer;
+                font-weight: 500;
+            }
+        }
+
+        .message-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .hide-on-mobile {
+            display: none;
+        }
+    }
+}
+
+.menu-container {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    column-gap: 10px;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+
+    button {
+        height: 30px;
+        width: 30px;
+    }
+}

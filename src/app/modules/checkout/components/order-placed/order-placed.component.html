@@ -1,0 +1,9 @@
+<h1>¡Hemos recibido tu pedido!</h1>
+<h2> Número de Pedido: <strong>{{ orderId }}</strong></h2>
+<!-- Ir a mis Pedidos add a validation to only show this button if the user is logged -->
+<button mat-flat-button color="primary" routerLink="/products">Seguir Comprando</button> 
+<button mat-flat-button color="primary" routerLink="/myorders">Ir a mis Pedidos</button> 
+<button mat-button color="primary" [cdkCopyToClipboard]="orderId" (click)="copy()">Copiar número de pedido</button>
+@if(copiedOrderId){
+    <span>¡Número de Pedido copiado!</span>
+}

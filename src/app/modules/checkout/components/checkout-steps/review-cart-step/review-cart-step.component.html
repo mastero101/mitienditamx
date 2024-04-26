@@ -1,0 +1,24 @@
+<div class="items-container">
+    @for (item of items; track $index) { 
+        <mat-card>
+            <mat-card-header>
+                <img mat-card-avatar src="{{ item.url }}">
+                <a [routerLink]="['/products', item.id]" class="product-name">{{item.name}}</a>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="price-details">
+                    <span class="price">{{item.price | currency}} MXN</span>                       
+                </div>
+            </mat-card-content>
+            <div class="actions">
+                <button mat-icon-button color="warn" (click)="reduceFromShoppingCart(item.id)"><mat-icon>remove</mat-icon></button>
+                <span> Cantidad: {{item.count}}</span>
+                <button mat-icon-button color="primary" (click)="increaseFromShoppingCart(item.id)"><mat-icon>add</mat-icon></button>
+            </div>
+        </mat-card>
+    }
+</div>
+<h3><strong>Total en productos: {{ totalCharge | currency}}</strong> MXN</h3>
+<div class="step-action-buttons">
+    <button mat-button color="primary" class="next-button" (click)="clickedNext.emit()">Siguiente</button>
+</div> 

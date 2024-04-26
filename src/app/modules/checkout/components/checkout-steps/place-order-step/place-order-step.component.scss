@@ -1,0 +1,58 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1.error {
+        color: red;
+        text-align: center;
+    }
+
+    p {
+        text-align: justify;
+    }
+
+    .order-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .detail-line {
+            display: flex;
+            flex-direction: row;
+
+            .line-name {
+                width: 100px;
+                text-align: right;
+                margin-right: 10px;
+            }
+            .text-line, .price-line{
+                width: 200px;
+            }
+
+            .text-line {
+                text-align: justify;               
+            }
+
+            .price-line {
+                text-align: right;               
+            }
+        }
+    }
+
+    .step-action-buttons {
+        padding-top: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+
+        .next-button {
+            width: 49%;
+        }
+
+        .previous-button {
+            width: 49%;
+        }
+    }
+}

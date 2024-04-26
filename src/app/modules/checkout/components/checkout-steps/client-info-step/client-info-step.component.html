@@ -1,0 +1,66 @@
+@if(form){
+    <form [formGroup]="form">
+        <div class ="fields-row">
+            <mat-form-field appearance="outline" floatLabel="always" class="xl-field">
+                <mat-label>Nombre(s)</mat-label>
+                <input matInput [formControl]="nameControl" required>
+                    @if(nameControl && nameControl.invalid){
+                        <mat-error>
+                            @if(nameControl.errors?.required){ Requerido }
+                            @else if(nameControl.errors?.maxlength){ Máximo 150 caracteres}
+                        </mat-error>    
+                    }
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always" class="xl-field">
+                <mat-label>Apellido(s)</mat-label>
+                <input matInput [formControl]="lastNameControl" required>
+                    @if(lastNameControl && lastNameControl.invalid){
+                        <mat-error>
+                            @if(lastNameControl.errors?.required){ Requerido }
+                            @else if(lastNameControl.errors?.maxlength){ Máximo 150 caracteres}
+                        </mat-error>    
+                    }
+            </mat-form-field>
+        </div>
+        <div class="fields-row">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Estado</mat-label>
+                <mat-select [formControl]="stateKeyControl">
+                  @for (state of states; track state) {
+                    <mat-option [value]="state.key">{{state.value}}</mat-option>
+                  }
+                </mat-select>
+                @if(stateKeyControl && stateKeyControl.invalid){
+                    <mat-error>
+                        @if(stateKeyControl.errors?.required){ Requerido }
+                    </mat-error>    
+                }
+              </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always" class="s-field">
+                <mat-label>Código Postal</mat-label>
+                <input matInput [formControl]="zipCodeControl" required>
+                    @if(zipCodeControl && zipCodeControl.invalid){
+                        <mat-error>
+                            Código de 5 dígitos
+                        </mat-error>
+                    }
+            </mat-form-field>
+        </div>
+        <div class="fields-row">
+            <mat-form-field appearance="outline" floatLabel="always" class="xxl-field">
+                <mat-label>Address</mat-label>
+                <textarea matInput [formControl]="addressControl"></textarea>
+                @if(addressControl && addressControl.invalid){
+                    <mat-error>
+                        @if(addressControl.errors?.required){ Requerido }
+                        @else if(lastNameControl.errors?.maxlength){ Máximo 300 caracteres}
+                    </mat-error>    
+                }
+              </mat-form-field>
+        </div>
+    </form>
+    <div class="step-action-buttons">
+        <button mat-button color="warn" class="previous-button" (click)="clickedPrevious.emit()">Anterior</button>
+        <button mat-button color="primary" class="next-button" (click)="clickedNext.emit()">Siguiente</button>
+    </div>
+}

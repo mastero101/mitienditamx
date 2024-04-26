@@ -1,0 +1,21 @@
+:host{
+    background-color: lightgray;
+
+    .login-container {
+        background-color: white;
+        border-radius: 5px;
+        max-width: 500px;
+        max-height: 500px;
+        height: auto;
+        -webkit-box-shadow: 9px 11px 12px -10px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 9px 11px 12px -10px rgba(0, 0, 0, 0.75);
+        box-shadow: 9px 11px 12px -10px rgba(0, 0, 0, 0.75);
+
+        form{
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+        }       
+    }
+}

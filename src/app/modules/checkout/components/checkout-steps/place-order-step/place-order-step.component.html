@@ -1,0 +1,36 @@
+@if(form && form.valid){
+    <h3> Despúes de realizar el depósito o transferencia deberás añadir la Clave de Rastreo a tu pedido para ser validado.
+        Puedes revisar tu pedido en cualquier momento a través del menú. O bien puedes comunicarte al número 981-00-0000
+        indicando tu número de pedido</h3>
+    <div class="order-details">
+        <div class="detail-line">
+            <div class="line-name">Nombre:</div>
+            <div class="text-line"> {{ name }} {{ lastName }}</div>
+        </div>
+        <div class="detail-line">
+            <div class="line-name">Dirección:</div>
+            <div class="text-line"> {{ address }}, {{ state }}, {{zipCode}}</div>
+        </div>
+        <div class="detail-line">
+            <div class="line-name">Productos:</div>
+            <div class="price-line">{{totalInProducts | currency}} MXN</div>
+        </div>
+        <div class="detail-line">
+            <div class="line-name">Envío:</div>
+            <div class="price-line">$100.00 MXN</div>
+        </div>
+        <br>
+        <div class="detail-line">
+            <div class="line-name"><strong>Total:</strong></div>
+            <div class="price-line"><strong>{{ totalInProducts + 100 | currency}} MXN</strong></div>
+        </div>
+    </div>
+    <div class="step-action-buttons">
+        <button mat-button color="warn" class="previous-button" (click)="clickedPrevious.emit()">Anterior</button>
+        <span class="fill-space"></span>
+        <button mat-flat-button color="primary" (click)="checkout()" class="next-button">Realizar Pedido</button>
+    </div>
+}
+@else {
+    <h1 class="error">Existen errores en el formulario</h1>
+}

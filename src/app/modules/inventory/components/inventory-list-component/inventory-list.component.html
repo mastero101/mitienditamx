@@ -1,0 +1,68 @@
+<div style="padding:10px; display: flex; flex-direction: column;">
+  <label>Buscar por:</label>
+  <mat-radio-group aria-label="Select an option" [(ngModel)]="searchBy">
+    <mat-radio-button value="defaultName">Nombre</mat-radio-button>
+    <mat-radio-button value="brand">Marca</mat-radio-button>
+  </mat-radio-group>
+  <div style="display: flex; flex-direction: row; column-gap: 10px;">
+    <mat-form-field appearance="outline" style="width: 300px" [formControl]="filter" ngDefaultControl>
+      <mat-label>Búsqueda</mat-label>
+      <input matInput placeholder="Ingrese un valor para buscar">
+    </mat-form-field>
+    <div class="search-button">
+      <button mat-raised-button color="primary" (click)="search()" style="height: 70%;" [disabled]="isSearchDisabled">
+        <mat-icon>search</mat-icon>Buscar
+      </button>
+    </div>
+    <span class="fill-space"></span>
+    <div class="search-button">
+      <button mat-raised-button color="primary" (click)="addItem()" style="height: 70%;">
+        <mat-icon>add</mat-icon>Agregar
+      </button>
+    </div>
+  </div>
+</div>
+<div class="header-container">
+  <span class="records-counter">Productos: {{ paginatorLength }}</span>
+  <mat-paginator [length]="paginatorLength" [pageSizeOptions]="itemsPerPage" showFirstLastButtons
+    (page)="handlePageEvent($event)">
+  </mat-paginator>
+</div>
+<div class="table-container">
+  <table mat-table [dataSource]="items()" class="table" matSort [matSortActive]="sortActive"
+    [matSortDirection]="sortDirection" (matSortChange)="sortChange($event)">
+    @for(col of columns; track $index){
+      <ng-container [matColumnDef]="col.field">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width.px]="col.maxWidth"
+          [style.textAlign]="col.align" [disabled]="col.sortDisabled"> {{ col.title }} </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="td-container" [style.width.px]="col.maxWidth" [style.justifyContent]="col.align">
+            <div [style.textAlign]="col.align" [style.maxWidth.px]="col.maxWidth"> 
+              @switch(col.type){ 
+                @case("currency"){ 
+                  {{ element | field:col.field | currency}} 
+              }
+              @case("options"){
+                <button mat-icon-button [matMenuTriggerFor]="optionsmenu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #optionsmenu="matMenu">
+                  <div class="menu-container">
+                    <button mat-mini-fab color="primary" (click)="editItem(element)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" (click)="deleteItem(element?.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </mat-menu>
+              }
+              @default{ {{ element | field:col.field }} } } </div>
+          </div>
+        </td>
+      </ng-container>
+    } 
+    <tr mat-header-row *matHeaderRowDef="columnNames; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnNames;" class="rows"></tr>
+  </table>
+</div>

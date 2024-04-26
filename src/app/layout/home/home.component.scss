@@ -1,0 +1,88 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .head-banner {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+
+        img {
+            cursor: pointer;
+            width: 49.9%;
+            object-fit: contain;
+        }
+    }
+
+    .middle-banner {
+        position: relative;
+        display: inline-flex;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        .panel {
+            box-sizing: border-box;
+            width: 33.3%;
+
+            .item-image {
+                cursor: pointer;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+
+    .filler {
+        flex: 1;
+    }
+
+    footer {
+        background-color: #3f51b5;
+        max-height: 100px;
+        display: flex;
+        flex-direction: column;
+        padding: 5px 10px;
+        color: white;
+
+        span{
+            padding-top: 10px;
+        }
+
+        div.details-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 5px 10px;
+            column-gap: 10px;
+
+            a {
+                color: white;
+            }
+
+            a:visited {
+                text-decoration: none;
+                color: white;
+            }
+        }
+
+        h5 {
+            text-align: center;
+            margin-bottom: 0px;
+            align-items: flex-end;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .middle-banner {
+            flex-direction: column;
+
+            .panel {
+                width: 100%;
+            }
+        }
+    }
+}

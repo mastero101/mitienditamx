@@ -1,0 +1,21 @@
+<div class="navbar">
+    @for(item of publicMenuItems; track $index){
+        <app-menu-item [item]="item" (click)="setActive(item.id)"></app-menu-item>
+        @if(item.isActive){
+            @for(subitem of item.children; track $index){
+                <app-menu-item [item]="subitem" [isSubmenu]="true" (click)="setSubActive(item.id, subitem.id)"></app-menu-item>
+            }
+        }
+    }
+    @if(showAdminSection){
+        <mat-divider></mat-divider>
+        <div class="admin-section">            
+            <div class="menu-section-header justify-center">
+                <span><strong>Administrar Página</strong></span>
+            </div>
+            @for(item of adminMenuItems; track $index){
+                <app-menu-item [item]="item" (click)="setActive(item.id)"></app-menu-item>
+            }
+        </div>
+    }
+</div>

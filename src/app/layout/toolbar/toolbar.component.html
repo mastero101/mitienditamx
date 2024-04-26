@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="menu" (click)="toggleDrawer.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="title fill-space"> {{ toolbarTitle | uppercase }}</span>
+  <button mat-icon-button class="favorite-icon" aria-label="shopping cart" [matMenuTriggerFor]="shoppingCartMenu">
+    <mat-icon matBadge="{{cartItemsCount}}" matBadgeColor="accent" [matBadgeHidden]="isCartBadgeHidden"> shopping_cart
+    </mat-icon>
+  </button>
+  <button mat-icon-button aria-label="account" [matMenuTriggerFor]="userInfoMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #shoppingCartMenu="matMenu" xPosition="before">
+  <app-toolbar-cart-info></app-toolbar-cart-info>
+</mat-menu>
+<mat-menu #userInfoMenu="matMenu" xPosition="before">
+  <app-toolbar-user-info></app-toolbar-user-info>
+</mat-menu>

@@ -1,0 +1,75 @@
+ @if(!exists){
+  <h1 class="header">Producto no encontrado</h1>
+} @else {
+  <h1 class="header">{{name}}</h1>
+  <h2 class="header">{{brand}}</h2>
+  <div class="details-container">
+    <div class="images-container">
+      <div class="other-images">
+        @for(image of altImages; track image){
+          <img src="{{ image.url }}" (click)="switchImage(image.url)">
+        }
+      </div>
+      <div class="main-image">
+        <img src="{{ selectedImage }}">
+      </div>
+    </div>
+    <div class="details-container">
+      <div class="description">
+        <h2>
+          Descripción del producto:
+        </h2>
+        <h3>
+          Refresca tu día con el Temo de Agua Azul, una elección perfecta para mantenerse hidratado y revitalizado en cualquier momento. Este envase de 3 litros ofrece una generosa cantidad de agua purificada, lista para satisfacer tu sed y energizarte durante todo el día.
+          <br>
+          El Temo de Agua Azul destaca por su calidad premium y su sabor cristalino, gracias a un proceso de purificación cuidadosamente diseñado que elimina impurezas y garantiza un agua fresca y saludable en cada sorbo.
+        </h3>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="promotion-details">
+        @if(hasTag){
+          <div [class.tag-promotion]="isTagPromotion" [class.tag-new]="isTagNew">
+              {{tagText}}
+          </div>
+        }
+        <div class="available-options" [class.sold-out] ="isSoldOut">
+          @if(isSoldOut){
+            AGOTADO
+          }@else{
+            Disponibles: {{ availableItems }}
+          }
+         </div>        
+      </div>
+      <div class="price-details">
+        @if(isTagPromotion){
+          <div class="previous-price-line"><div class="price"> {{product.price + 173.45 | currency }}</div>MXN</div>
+        }
+        <div class="price-line"><div class="price"> {{product.price | currency }}</div>MXN</div>
+      </div>
+      <div class="buy-options">
+         @if(!isSoldOut){
+          <div class="select-options">
+            <mat-form-field appearance="outline">
+              <mat-label>Cantidad</mat-label>
+              <mat-select [(ngModel)]="selectedAmount" [disabled] ="isSoldOut"> 
+                @for (amount of availavilityOptions; track amount) { 
+                  <mat-option [value]="amount.key">{{ amount.value }}</mat-option> 
+                }
+              </mat-select>
+            </mat-form-field>
+            <button mat-flat-button color="primary" class="buy-button" [disabled]="isSoldOut" (click)="addItemToCart()">Agregar al Carrito</button>
+          </div>
+         }
+      </div>
+    </div>
+  </div>
+  <br>
+  <mat-divider></mat-divider>
+  <br>
+  <h1 class="header">Nuestras ofertas</h1>
+  <div class="suggested">
+    @for(item of randomItems; track item){
+      <app-card-item [item]="item"></app-card-item>
+    }
+  </div>
+}

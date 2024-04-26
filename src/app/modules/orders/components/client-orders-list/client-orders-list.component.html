@@ -1,0 +1,93 @@
+<div style="padding:10px; display: flex; flex-direction: column;">
+    <label>Buscar por:</label>
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="searchBy">
+      <mat-radio-button value="statusValue">Estado</mat-radio-button>
+    </mat-radio-group>
+    <div style="display: flex; flex-direction: row; column-gap: 10px;">
+      <mat-form-field appearance="outline" style="width: 300px" [formControl]="filter" ngDefaultControl>
+        <mat-label>Búsqueda</mat-label>
+        <input matInput placeholder="Ingrese un valor para buscar">
+      </mat-form-field>
+      <div class="search-button">
+        <button mat-raised-button color="primary" (click)="search()" style="height: 70%;" [disabled]="isSearchDisabled">
+          <mat-icon>search</mat-icon>Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="header-container">
+    @if(paginatorLength > 0) {
+        <span class="records-counter">Pedidos: {{ paginatorLength }}</span>
+        <mat-paginator [length]="paginatorLength" [pageSizeOptions]="itemsPerPage" showFirstLastButtons
+          (page)="handlePageEvent($event)">
+        </mat-paginator>
+    }
+  </div>
+  <div class="table-container">
+    @if(paginatorLength === 0) {
+        <div style="padding: 10px 20px; background-color: white;">
+          <p style="text-align: center; color: black; vertical-align: middle;">
+            No existen ordenes coincidentes
+          </p>
+        </div>   
+    }
+    @else{
+        <table mat-table [dataSource]="items()" class="table" matSort [matSortActive]="sortActive"
+        [matSortDirection]="sortDirection" (matSortChange)="sortChange($event)">
+        @for(col of columns; track $index){
+          <ng-container [matColumnDef]="col.field">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width.px]="col.maxWidth"
+              [style.textAlign]="col.align" [disabled]="col.sortDisabled" [class.hide-on-mobile]="col.hideOnMobile"> {{ col.title }}
+            </th>
+            <td mat-cell *matCellDef="let element" [class.hide-on-mobile]="col.hideOnMobile">
+              <div class="td-container" [style.width.px]="col.maxWidth" [style.justifyContent]="col.align">
+                <div [style.textAlign]="col.align" [style.maxWidth.px]="col.maxWidth"> 
+                  @switch(col.type){ 
+                    @case("currency"){ 
+                      {{ element | field:col.field | currency}} 
+                  }
+                  @case("date"){ 
+                    {{ element | field:col.field | date: 'dd/MM/yyyy'}} 
+                  }
+                  @case("status"){
+                    <div class= 'status-cell' 
+                        [class.statusCreated]="element.statusKey == 1"
+                        [class.statusAwaitingPayment]="element.statusKey == 2"
+                        [class.statusPaymentInvalid]="element.statusKey == 3"
+                        [class.statusPaymentConfirmed]="element.statusKey == 4"
+                        [class.statusSent]="element.statusKey == 5"
+                        [class.statusCanceled]="element.statusKey == 6">
+                        {{ element | field:col.field }}
+                    </div>
+                  }
+                  @case("options"){
+                    <button mat-icon-button [matMenuTriggerFor]="optionsmenu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #optionsmenu="matMenu">
+                      <button mat-menu-item (click)="bankTrackCode(element)">
+                        <mat-icon>dialpad</mat-icon>
+                        <span>Códgo de Rastreo</span>
+                      </button>
+                    </mat-menu>
+                  }
+                  @default{ 
+                    {{ element | field:col.field }} 
+                  } 
+                } 
+                </div>
+              </div>
+            </td>
+          </ng-container>
+        }  @empty {
+          <div style="padding: 10px 20px;">
+            <p style="text-align: center; color: black">
+              No existen ordenes coincidentes
+            </p>
+          </div>   
+        }
+        <tr mat-header-row *matHeaderRowDef="columnNames; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnNames;" class="rows"></tr>
+      </table>
+    }
+  </div>

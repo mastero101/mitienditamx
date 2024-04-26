@@ -1,0 +1,33 @@
+<div class="search-header">
+  <mat-form-field appearance="outline" [formControl]="filter" ngDefaultControl class="search-field">
+    <mat-label>Búsqueda</mat-label>
+    <input matInput (keydown.enter)="search()">
+    <button mat-icon-button matSuffix (click)="search()">
+      <mat-icon color="primary">search</mat-icon>
+    </button>
+  </mat-form-field>
+  <div class="filler"></div>
+  <mat-form-field appearance="outline" class="sort-field">
+    <mat-label>Ordenar por</mat-label>
+    <mat-select [formControl]="sortBy">
+      <mat-option [value]="1">Menor precio</mat-option>
+      <mat-option [value]="2">Mayor precio</mat-option>
+    </mat-select>
+    @if(sortBy.value){
+      <button mat-icon-button matSuffix (click)="clearSort($event)">
+        <mat-icon>clear</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+  <mat-paginator [length]="paginatorLength" [pageSizeOptions]="itemsPerPage" showFirstLastButtons
+    (page)="handlePageEvent($event)">
+  </mat-paginator>
+</div>
+<div class="items-container">
+  @for (item of items(); track $index) {
+    <app-card-item [item]="item"></app-card-item>
+  }
+  @empty { 
+    <p style="color: black">Empty list of products</p>
+  }
+</div>

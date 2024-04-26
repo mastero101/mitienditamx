@@ -1,0 +1,12 @@
+<span>Hola {{userEmail}}</span>
+<br>
+@if(isUserLogged){
+  @if(!isAdmin){
+    <a routerLink="/myorders">Mis pedidos</a>
+    <br>
+  }
+  <button mat-flat-button color="primary" routerLink="dashboard" style="margin-bottom: 5%;">Dashboard</button>
+  <button mat-flat-button color="warn" (click)="logout()">Cerrar Sesión</button>
+} @else{
+  <button mat-flat-button color="primary" routerLink="/login">Iniciar Sesión</button>
+}

@@ -1,0 +1,43 @@
+<div class="login-container">
+    <mat-tab-group animationDuration="200ms" color="primary">
+        <mat-tab label="Iniciar Sesión">
+            <form [formGroup]="loginForm">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="email" required>
+                    @if(emailControl.errors?.required){
+                      <mat-error>
+                          Campo requerido
+                      </mat-error>
+                    }
+                    @if(emailControl.errors?.email){
+                      <mat-error>
+                          Correo inválido
+                      </mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>                    
+                    @if(passwordControl.errors?.required){
+                      <mat-error>
+                          Campo requerido
+                      </mat-error>
+                    }
+                  </mat-form-field>
+                  @if(isInvalidUser){
+                    <mat-error>
+                      Usuario o contraseña incorrectos
+                    </mat-error>
+                  }
+                <button mat-flat-button color="primary" (click)="login()" [disabled]="loginForm.invalid">Iniciar Sesión</button>
+            </form>
+        </mat-tab>
+          <mat-tab label="Crear Cuenta">
+            <app-register></app-register>
+        </mat-tab>
+    </mat-tab-group>
+</div>

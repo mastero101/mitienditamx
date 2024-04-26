@@ -1,0 +1,66 @@
+<div class="register-container">
+    <form [formGroup]="registerForm">
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" required>                   
+        @if(nameControl.errors?.required){
+          <mat-error>
+              Campo requerido
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Correo</mat-label>
+          <input matInput formControlName="email" required>
+          @if(emailControl.errors?.required){
+            <mat-error>
+                Campo requerido
+            </mat-error>
+          }
+          @if(emailControl.errors?.email){
+            <mat-error>
+                Correo inválido
+            </mat-error>
+          }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <div>
+          @if(passwordControl.errors?.required){
+            <mat-error>
+              Campo requerido
+            </mat-error>
+          }
+          @if(passwordControl.errors?.pattern){
+            <mat-error>
+              La contraseña debe contener al menos 8 caracteres, un número y un símbolo
+            </mat-error>
+          }
+        </div>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" required>
+            @if(passwordControl.errors?.required){
+              <mat-error>
+                Campo requerido
+              </mat-error>
+            }
+            @if(confirmPasswordControl.errors?.passwordMatchValidator){
+              <mat-error>
+                Las contraseñas no coinciden
+              </mat-error>
+            }
+      </mat-form-field>
+    
+      <button mat-flat-button color="primary" (click)="register()" [disabled]="registerForm.invalid">Registrar Usuario</button>
+    </form>
+</div>

@@ -1,0 +1,9 @@
+:host {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+
+    span{
+        word-break: break-all
+    };
+}
